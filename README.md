@@ -40,7 +40,7 @@ function Home() {
 export default Home;
 
 ```
-BMICalculator.js
+BMICalculator.jsx
 ```
 import React, { useState } from 'react';
 
