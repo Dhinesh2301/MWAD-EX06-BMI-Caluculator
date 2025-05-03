@@ -21,77 +21,67 @@ Classify the BMI result into categories (Underweight, Normal weight, Overweight,
 Navigate between pages using React Router.
 
 ## PROGRAM
-Home.js
+Home.jsx
 ```
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+function Home() {
   const navigate = useNavigate();
   return (
     <div>
-      <h2>Welcome to the BMI Calculator</h2>
-      <p>Click the button below to calculate your Body Mass Index.</p>
-      <button onClick={() => navigate('/calculator')}>Go to Calculator</button>
+      <h2>Welcome!</h2>
+      <p>Click below to check your BMI.</p>
+      <button onClick={() => navigate('/calculator')}>Start</button>
     </div>
   );
-};
+}
 
 export default Home;
+
 ```
 BMICalculator.js
 ```
 import React, { useState } from 'react';
 
-const BMICalculator = () => {
+function BMICalculator() {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
-  const [bmi, setBMI] = useState(null);
+  const [bmi, setBmi] = useState('');
   const [category, setCategory] = useState('');
 
-  const calculateBMI = () => {
-    const h = height / 100; // convert to meters
-    const bmiValue = weight / (h * h);
-    setBMI(bmiValue.toFixed(2));
-
-    if (bmiValue < 18.5) setCategory('Underweight');
-    else if (bmiValue < 24.9) setCategory('Normal weight');
-    else if (bmiValue < 29.9) setCategory('Overweight');
+  const calculate = () => {
+    const h = height / 100;
+    const b = weight / (h * h);
+    setBmi(b.toFixed(2));
+    if (b < 18.5) setCategory('Underweight');
+    else if (b < 25) setCategory('Normal');
+    else if (b < 30) setCategory('Overweight');
     else setCategory('Obesity');
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div>
       <h2>BMI Calculator</h2>
-      <input
-        type="number"
-        placeholder="Weight (kg)"
-        value={weight}
-        onChange={(e) => setWeight(e.target.value)}
-      />
-      <br /><br />
-      <input
-        type="number"
-        placeholder="Height (cm)"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-      />
-      <br /><br />
-      <button onClick={calculateBMI}>Calculate BMI</button>
-
+      <input type="number" placeholder="Weight (kg)" value={weight} onChange={(e) => setWeight(e.target.value)} />
+      <br />
+      <input type="number" placeholder="Height (cm)" value={height} onChange={(e) => setHeight(e.target.value)} />
+      <br />
+      <button onClick={calculate}>Calculate</button>
       {bmi && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Your BMI: {bmi}</h3>
-          <p>Category: <strong>{category}</strong></p>
+        <div>
+          <p>BMI: {bmi}</p>
+          <p>Category: {category}</p>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default BMICalculator;
+
 ```
-App.js
+App.jsx
 ```
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -101,11 +91,10 @@ import BMICalculator from './BMICalculator';
 function App() {
   return (
     <Router>
-      <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        <h1>BMI Calculator App</h1>
+      <div style={{ textAlign: 'center' }}>
+        <h1>BMI Calculator</h1>
         <nav>
-          <Link to="/" style={{ marginRight: '15px' }}>Home</Link>
-          <Link to="/calculator">Calculator</Link>
+          <Link to="/">Home</Link> | <Link to="/calculator">Calculator</Link>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -117,11 +106,14 @@ function App() {
 }
 
 export default App;
+
+
 ```
 
 ## OUTPUT
-![image](https://github.com/user-attachments/assets/a3ac65d3-19cf-4454-a53f-1c20eb29ae0b)
-![image](https://github.com/user-attachments/assets/043a0764-8960-4acb-8940-985a2b0b8302)
+![image](https://github.com/user-attachments/assets/f6d44420-9523-47bc-bc93-45067ca9fea1)
+![image](https://github.com/user-attachments/assets/354d4d56-fb3b-43fb-867f-f505ba62bfb3)
+
 
 
 ## RESULT
